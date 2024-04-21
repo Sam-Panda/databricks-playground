@@ -1,5 +1,6 @@
 # Databricks notebook source
 # MAGIC %sql
+# MAGIC USE catalog hive_metastore;
 # MAGIC CREATE SCHEMA IF NOT EXISTS cdc_data;
 # MAGIC
 # MAGIC CREATE TABLE
@@ -31,6 +32,7 @@
 # COMMAND ----------
 
 # MAGIC %sql
+# MAGIC USE catalog hive_metastore;
 # MAGIC CREATE SCHEMA IF NOT EXISTS cdc_data;
 # MAGIC
 # MAGIC CREATE TABLE
@@ -54,4 +56,20 @@
 
 # MAGIC %sql
 # MAGIC
+# MAGIC -- insert into cdc_data.users2 VALUES
+# MAGIC --   (130, "Raul130",     "Oaxaca",       130);
+# MAGIC Update cdc_data.users2
+# MAGIC SET name = "Raul123"
+# MAGIC where userid=123
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC USE catalog hive_metastore;
 # MAGIC select * from cdc_data.users2
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC
+# MAGIC select * from hive_metastore.cdc_data.target
