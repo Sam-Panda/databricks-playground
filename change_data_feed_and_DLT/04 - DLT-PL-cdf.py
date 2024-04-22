@@ -9,14 +9,6 @@ folder_path = "/mnt/external_datalake/misc/change_data_feed1"
 # COMMAND ----------
 
 @dlt.view
-# (
-#   name="customer_bronze",
-#   comment = "The incrmenetal customer change data ingested from the data lake",
-#   path = "/mnt/external_datalake/cdcdata/tables/change_data_feed",
-#   table_properties={
-#     "quality": "bronze"
-#   }
-# )
 def customer_bronze():
   df = spark.readStream.format("cloudFiles") \
       .option("cloudFiles.format", "csv") \

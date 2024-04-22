@@ -103,10 +103,10 @@ print(random_timestamp)
 
 # MAGIC %sql
 # MAGIC INSERT INTO cdc_data.users_change_data_feed
-# MAGIC VALUES (131, 'Sam131', 'Owen', current_timestamp());
+# MAGIC VALUES (132, 'Sam132', 'Owen', current_timestamp());
 # MAGIC
 # MAGIC UPDATE cdc_data.users_change_data_feed
-# MAGIC SET name = 'Raul-123', modifiedtime=current_timestamp()
+# MAGIC SET name = 'Raul-123-update1', modifiedtime=current_timestamp()
 # MAGIC WHERE userid = 123;
 
 # COMMAND ----------
