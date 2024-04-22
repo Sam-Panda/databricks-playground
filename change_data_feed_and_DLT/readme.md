@@ -21,7 +21,7 @@ Here are the four step process to this use case:
 
 
 ## Step 1: Enable Change Data Feed in the users table
-
+**Notebook Link**: [01 - demo_change_data_feed](https://github.com/Sam-Panda/databricks-playground/blob/main/change_data_feed_and_DLT/notebooks/01%20-%20demo_change_data_feed.ipynb)
 ```sql
 CREATE SCHEMA IF NOT EXISTS cdc_data;
 create table if not exists cdc_data.users_change_data_feed
@@ -52,7 +52,7 @@ SELECT * FROM table_changes('cdc_data.users_change_data_feed',0)
 ![alt text](https://github.com/Sam-Panda/databricks-playground/blob/main/change_data_feed_and_DLT/.images/change_data_feed_image.png)
 
 ## Step 2: Construct a control table 
-
+Notebook Link : [02 - creating the control table](https://github.com/Sam-Panda/databricks-playground/blob/main/change_data_feed_and_DLT/notebooks/02%20-%20creating%20the%20control%20table.ipynb)
 The control table will retain the watermark timestamp for subsequent extraction of the change data feed. The control table will have the following columns:
 - delta_table_name: The name of the delta table for which the change data feed is enabled.
 - processed_end_timestamp: The watermark timestamp that will be used to extract the change data feed.
@@ -93,6 +93,7 @@ VALUES (
 
 ## Step 3: Retrieve the change data feed from the delta table and export it as a CSV file
 
+Notebook Link : [03 - change data feed into file for DLT Pipeline](https://github.com/Sam-Panda/databricks-playground/blob/main/change_data_feed_and_DLT/notebooks/03%20-%20change%20data%20feed%20into%20file%20for%20DLT%20Pipeline.ipynb)
 First, get the latest watermark timestamp from the control table. and construct the file name with incrementing the number at the end of the file name.
 
 ```python
@@ -151,7 +152,8 @@ where delta_table_name = '{delta_table_name}'
 spark.sql(sqlquery)
 ```
 
-Step 4: Use Delta Live Table framework to create the target delta live table
+## Step 4: Use Delta Live Table framework to create the target delta live table
+Notebook Link : [04 - DLT Pipeline](https://github.com/Sam-Panda/databricks-playground/blob/main/change_data_feed_and_DLT/notebooks/04%20-%20DLT-PL-cdf.ipynb)
 
 Here is the delta live table code to apply the changes to the target delta table (customer_silver_scd_type_1, customer_silver_scd_type_2). The code will apply the changes to the target delta table based on the SCD type 1 and SCD type 2. 
 
