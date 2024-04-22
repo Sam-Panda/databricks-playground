@@ -49,7 +49,7 @@ Reading the change data feed from the delta table
 %sql
 SELECT * FROM table_changes('cdc_data.users_change_data_feed',0)
 ```
-![alt text](change_data_feed_image.png)
+![alt text](https://github.com/Sam-Panda/databricks-playground/blob/main/change_data_feed_and_DLT/.images/change_data_feed_image.png)
 
 ## Step 2: Construct a control table 
 
@@ -207,4 +207,15 @@ dlt.apply_changes(
 ```
 
 
-![alt text](DLTfileimage.png)
+![alt text](https://github.com/Sam-Panda/databricks-playground/blob/main/change_data_feed_and_DLT/.images/DLTfileimage.png)
+
+##output
+
+The source table
+![alt text](https://github.com/Sam-Panda/databricks-playground/blob/main/change_data_feed_and_DLT/.images/ThesourceTableimage.png)
+
+The Target SCD type1 table
+![alt text](https://github.com/Sam-Panda/databricks-playground/blob/main/change_data_feed_and_DLT/.images/TheSCDType1image.png)
+
+The Target SCD type2 table
+![alt text](https://github.com/Sam-Panda/databricks-playground/blob/main/change_data_feed_and_DLT/.images/TheSCDType2image.png)
