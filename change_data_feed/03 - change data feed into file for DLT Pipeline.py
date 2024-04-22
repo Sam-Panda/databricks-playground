@@ -1,35 +1,4 @@
 # Databricks notebook source
-# MAGIC %sql
-# MAGIC
-# MAGIC -- Create schema and control table for CDC data tracking
-# MAGIC CREATE SCHEMA IF NOT EXISTS cdc_data;
-# MAGIC
-# MAGIC DROP TABLE IF EXISTS cdc_data.control_table;
-# MAGIC
-# MAGIC CREATE TABLE IF NOT EXISTS cdc_data.control_table (
-# MAGIC     delta_table_name STRING,
-# MAGIC     processed_begin_timestamp TIMESTAMP,
-# MAGIC     processed_end_timestamp TIMESTAMP,
-# MAGIC     current_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-# MAGIC )
-# MAGIC USING DELTA 
-# MAGIC TBLPROPERTIES ('delta.feature.allowColumnDefaults' = 'supported');
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC --Inserting the record in the control table for one of the delta table.
-# MAGIC INSERT INTO cdc_data.control_table
-# MAGIC VALUES ('cdc_data.users_change_data_feed', '2000-01-01T00:00:00', '2000-01-01T00:00:00', CURRENT_TIMESTAMP())
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC
-# MAGIC select * from cdc_data.control_table
-
-# COMMAND ----------
-
 delta_table_name = 'cdc_data.users_change_data_feed'
 
 
@@ -71,8 +40,8 @@ display(df)
 import datetime
 current_timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 # the below code content to create single csv file 
-csv_temp_location = f"abfss://misc@adlsg2contosoodbk.dfs.core.windows.net/temp/change_data_feed/cdf_{delta_table_name}_{current_timestamp}.csv"
-file_location = f"abfss://misc@adlsg2contosoodbk.dfs.core.windows.net/change_data_feed/cdf_{delta_table_name}_{current_timestamp}.csv"
+csv_temp_location = f"abfss://misc@adlsg2contosoodbk.dfs.core.windows.net/temp/change_data_feed1/cdf_{delta_table_name}_{current_timestamp}.csv"
+file_location = f"abfss://misc@adlsg2contosoodbk.dfs.core.windows.net/change_data_feed1/cdf_{delta_table_name}_{current_timestamp}.csv"
 
 df.repartition(1).write.csv(path=csv_temp_location, mode="append", header="true")
 
@@ -82,4 +51,16 @@ dbutils.fs.rm(csv_temp_location, recurse=True)
 
 # COMMAND ----------
 
+current_timestamp = datetime.datetime.now()
+sqlquery = f'''
+update cdc_data.control_table 
+set processed_end_timestamp='{current_timestamp}', current_timestamp='{current_timestamp}'
+where delta_table_name = '{delta_table_name}'
+'''
+spark.sql(sqlquery)
 
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC
+# MAGIC select * from cdc_data.control_table

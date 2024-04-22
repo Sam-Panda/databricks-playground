@@ -5,8 +5,7 @@
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC
-# MAGIC DROP  TABLE IF EXISTS cdc_data.users_change_data_feed
+# MAGIC -- DROP  TABLE IF EXISTS cdc_data.users_change_data_feed
 # MAGIC
 
 # COMMAND ----------
@@ -81,3 +80,36 @@ print(random_timestamp)
 
 # MAGIC %sql
 # MAGIC SELECT * FROM table_changes('cdc_data.users_change_data_feed',1)
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC
+# MAGIC select * from  cdc_data.users_change_data_feed
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC
+# MAGIC select * from hive_metastore.cdc_data.customer_silver_scd_type_1 order by userid desc
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC
+# MAGIC select * from hive_metastore.cdc_data.customer_silver_scd_type_2 order by userid desc
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC INSERT INTO cdc_data.users_change_data_feed
+# MAGIC VALUES (131, 'Sam131', 'Owen', current_timestamp());
+# MAGIC
+# MAGIC UPDATE cdc_data.users_change_data_feed
+# MAGIC SET name = 'Raul-123', modifiedtime=current_timestamp()
+# MAGIC WHERE userid = 123;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC delete from cdc_data.users_change_data_feed where userid=131
