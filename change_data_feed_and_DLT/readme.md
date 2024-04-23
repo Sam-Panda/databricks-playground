@@ -2,7 +2,13 @@
 
 ## Introduction
 
-This document provides an overview of how to work with Change Data Feed and Delta Live Tables in Azure Databricks. We have use case where we have a pre-populated delta table. The delta table gets updated from the external agent. We will use Change Data Feed to capture the changes in the delta table and then use Delta Live Tables to apply these changes to target delta table.
+This document provides an overview of how to work with Change Data Feed and Delta Live Tables in Azure Databricks. We have use case where we have a pre-populated delta table. The delta table gets updated from the external agent. We will use Change Data Feed to capture the changes in the delta table and then use Delta Live Tables to apply these changes to target delta table. 
+
+> P.S — I have not found an easier way to read the changes from the delta table using the DLT framework. Incase if there is any other alternative, please let me know. There is a way to read the changes from the delta table using the spark.readStream, but does not allow update or delete to happen on the source table. I get the following error while I try to do that.
+`spark.readStream.format("delta").table("hive_metastore.cdc_data.users2")`
+I get the following error: _Flow 'target2' has FAILED fatally. An error occurred because we detected an update or delete to one or more rows in the source table. Streaming tables may only use append-only streaming sources._
+
+
 
 **Source Delta Table --> Change Data Feed in ADLS Gen2--> Delta Live Table --> Target Delta Table**
 
