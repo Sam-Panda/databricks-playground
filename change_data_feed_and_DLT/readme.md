@@ -157,7 +157,10 @@ where delta_table_name = '{delta_table_name}'
 '''
 spark.sql(sqlquery)
 ```
+Here is the change data feed output saved into files.
 
+![alt text](https://github.com/Sam-Panda/databricks-playground/blob/main/change_data_feed_and_DLT/.images/storageAccounts-image.png)
+![alt text](https://github.com/Sam-Panda/databricks-playground/blob/main/change_data_feed_and_DLT/.images/storageAccounts-image-1.png)
 ## Step 4: Use Delta Live Table framework to create the target delta live table
 Notebook Link : [04 - DLT Pipeline](https://github.com/Sam-Panda/databricks-playground/blob/main/change_data_feed_and_DLT/notebooks/04%20-%20DLT-PL-cdf.ipynb)
 
